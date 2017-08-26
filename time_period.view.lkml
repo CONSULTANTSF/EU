@@ -4,18 +4,18 @@ view: time_period {
   dimension: compound_primary_key {
     primary_key: yes
     hidden: yes
-    sql: sql: CONCAT(${TABLE}.PERIOD, '  ', LEFT(${TABLE}.END_DATE,10)) ;;
+    sql: sql: CONCAT(${TABLE}."period", '  ', LEFT(${TABLE}."end_date",10)) ;;
   }
 
   dimension: period {
     type: string
-    sql: ${TABLE}.period ;;
+    sql: ${TABLE}."period" ;;
   }
 
   dimension_group: end {
     type: time
     timeframes: [date]
-    sql: ${TABLE}.end_date ;;
+    sql: ${TABLE}."end_date" ;;
   }
 
 #   dimension: compare_period {
