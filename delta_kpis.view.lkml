@@ -176,4 +176,29 @@ view: dfp_delta {
     type: count
     drill_fields: [placement_name, page_name, site_name]
   }
+
+##@@@@@@@@@@
+##@@@@@@@@@@
+##CALCULATED MEASURES
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  measure: vCTR {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${view_imp} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${view_imp}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: vCTR_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${view_imp_prev} > 0 THEN (CASE WHEN 1.0*${total_clicks_prev} > 0 THEN 1.0*(${total_clicks_prev}/${view_imp_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: vCTR_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${vCTR} - ${vCTR_prev};;
+  }
+
 }
