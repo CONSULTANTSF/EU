@@ -33,3 +33,17 @@ explore: aggregate_kpis {
     relationship: many_to_one
   }
 }
+
+explore: daily_kpis {
+  from: dfp_imp_daily_viz
+  join: time_period {
+    type: inner
+    sql_on: ${daily_kpis.end_date} = ${time_period.end_date} AND  ${daily_kpis.period} = ${time_period.period};;
+    relationship: many_to_one
+  }
+  join: add_dim {
+    type: inner
+    sql_on: ${daily_kpis.ad_unit} = ${add_dim.ad_unit};;
+    relationship: many_to_one
+  }
+}
