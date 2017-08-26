@@ -2,6 +2,8 @@ view: add_dim {
   sql_table_name: SANDBOXQBIZ.ADD_DIM ;;
 
   dimension: ad_unit {
+    primary_key: yes
+    hidden: yes
     type: string
     sql: ${TABLE}.AD_UNIT ;;
   }
