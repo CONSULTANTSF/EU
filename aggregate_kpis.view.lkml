@@ -1,5 +1,5 @@
-view: dfp_daily_agg {
-  sql_table_name: SANDBOXQBIZ.DFP_DAILY_AGG ;;
+view: dfp_agg_viz {
+  sql_table_name: SANDBOXQBIZ.DFP_AGG_VIZ ;;
 
 ##@@@@@@@@@@
 ##@@@@@@@@@@
