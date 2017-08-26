@@ -119,4 +119,17 @@ view: dfp_agg_viz {
     type: count
     drill_fields: [placement_name, page_name, site_name]
   }
+
+##@@@@@@@@@@
+##@@@@@@@@@@
+##CALCULATED MEASURES
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  measure: vCTR {
+    type: sum
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*{view_imp} > 0 THEN (CASE WHEN 1.0*{total_clicks} > 0 THEN 1.0*({total_clicks}/{view_imp}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*{total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
 }
