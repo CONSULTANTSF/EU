@@ -9,7 +9,7 @@ view: dfp_comp_viz {
   dimension: compound_primary_key {
     primary_key: yes
     hidden: yes
-    sql: sql: CONCAT(${TABLE}.PERIOD, '  ', LEFT(${TABLE}.END_DATE,10)) ;;
+    sql: sql: CONCAT(${TABLE}.AD_UNIT,'  ', ${TABLE}.PERIOD, '  ', LEFT(${TABLE}.END_DATE,10)) ;;
   }
 
   dimension: period {
