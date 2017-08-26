@@ -53,6 +53,10 @@ view: dfp_daily_agg {
     sql: ${TABLE}.PLACEMENT_NAME ;;
   }
 
+  dimension: ad_unit {
+    type: string
+    sql: ${TABLE}.AD_UNIT ;;
+  }
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 ##MEASURES
