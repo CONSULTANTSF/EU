@@ -1,77 +1,15 @@
 view: dfp_imp_daily_viz {
   sql_table_name: SANDBOXQBIZ.DFP_IMP_DAILY_VIZ ;;
 
-  dimension: ad_unit {
-    type: string
-    sql: ${TABLE}.AD_UNIT ;;
-  }
-
-  dimension: adex_clicks {
-    type: number
-    sql: ${TABLE}.ADEX_CLICKS ;;
-  }
-
-  dimension: adex_revenue {
-    type: number
-    sql: ${TABLE}.ADEX_REVENUE ;;
-  }
-
-  dimension: adex_view_imp {
-    type: number
-    sql: ${TABLE}.ADEX_VIEW_IMP ;;
-  }
-
-  dimension: adserv_clicks {
-    type: number
-    sql: ${TABLE}.ADSERV_CLICKS ;;
-  }
-
-  dimension: adserv_view_imp {
-    type: number
-    sql: ${TABLE}.ADSERV_VIEW_IMP ;;
-  }
-
-  dimension_group: date {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.DATE ;;
-  }
-
-  dimension: date_string {
-    type: string
-    sql: ${TABLE}.DATE_STRING ;;
-  }
-
-  dimension_group: end {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.END_DATE ;;
-  }
-
-  dimension: page {
-    type: string
-    sql: ${TABLE}.PAGE ;;
-  }
-
-  dimension: page_name {
-    type: string
-    sql: ${TABLE}.PAGE_NAME ;;
+##@@@@@@@@@@
+##@@@@@@@@@@
+##DIMENSIONS
+##@@@@@@@@@@
+##@@@@@@@@@@
+  dimension: compound_primary_key {
+    primary_key: yes
+    hidden: yes
+    sql: sql: CONCAT(${TABLE}.AD_UNIT,'  ', ${TABLE}.PERIOD, '  ', LEFT(${TABLE}.END_DATE,10), '  ', LEFT(${TABLE}.DATE,10)) ;;
   }
 
   dimension: period {
@@ -79,14 +17,21 @@ view: dfp_imp_daily_viz {
     sql: ${TABLE}.PERIOD ;;
   }
 
-  dimension: placement {
-    type: string
-    sql: ${TABLE}.PLACEMENT ;;
+  dimension_group: end {
+    type: time
+    timeframes: [date]
+    sql: ${TABLE}.END_DATE ;;
   }
 
-  dimension: placement_name {
+  dimension_group: date {
+    type: time
+    timeframes: [date]
+    sql: ${TABLE}.DATE ;;
+  }
+
+  dimension: date_string {
     type: string
-    sql: ${TABLE}.PLACEMENT_NAME ;;
+    sql: ${TABLE}.DATE_STRING ;;
   }
 
   dimension: site {
@@ -99,33 +44,88 @@ view: dfp_imp_daily_viz {
     sql: ${TABLE}.SITE_NAME ;;
   }
 
-  dimension: total_clicks {
-    type: number
+  dimension: page {
+    type: string
+    sql: ${TABLE}.PAGE ;;
+  }
+
+  dimension: page_name {
+    type: string
+    sql: ${TABLE}.PAGE_NAME ;;
+  }
+
+  dimension: placement {
+    type: string
+    sql: ${TABLE}.PLACEMENT ;;
+  }
+
+  dimension: placement_name {
+    type: string
+    sql: ${TABLE}.PLACEMENT_NAME ;;
+  }
+
+  dimension: ad_unit {
+    type: string
+    sql: ${TABLE}.AD_UNIT ;;
+  }
+##@@@@@@@@@@
+##@@@@@@@@@@
+##MEASURES
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  measure: adex_clicks {
+    type: sum
+    sql: ${TABLE}.ADEX_CLICKS ;;
+  }
+
+  measure: adex_revenue {
+    type: sum
+    sql: ${TABLE}.ADEX_REVENUE ;;
+  }
+
+  measure: adex_view_imp {
+    type: sum
+    sql: ${TABLE}.ADEX_VIEW_IMP ;;
+  }
+
+  measure: adserv_clicks {
+    type: sum
+    sql: ${TABLE}.ADSERV_CLICKS ;;
+  }
+
+  measure: adserv_view_imp {
+    type: sum
+    sql: ${TABLE}.ADSERV_VIEW_IMP ;;
+  }
+
+  measure: total_clicks {
+    type: sum
     sql: ${TABLE}.TOTAL_CLICKS ;;
   }
 
-  dimension: total_cpm_cpc_cpd_vcpm {
-    type: number
+  measure: total_cpm_cpc_cpd_vcpm {
+    type: sum
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
   }
 
-  dimension: total_imp {
-    type: number
+  measure: total_imp {
+    type: sum
     sql: ${TABLE}.TOTAL_IMP ;;
   }
 
-  dimension: unfilled_imp {
-    type: number
+  measure: unfilled_imp {
+    type: sum
     sql: ${TABLE}.UNFILLED_IMP ;;
   }
 
-  dimension: view_imp {
-    type: number
+  measure: view_imp {
+    type: sum
     sql: ${TABLE}.VIEW_IMP ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [page_name, site_name, placement_name]
+    drill_fields: [placement_name, page_name, site_name]
   }
 }
