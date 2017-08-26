@@ -61,3 +61,17 @@ explore: ad_request_size_kpis {
     relationship: many_to_one
   }
 }
+
+explore: current_vs_previous_kpis {
+  from: dfp_delta
+  join: time_period {
+    type: inner
+    sql_on: ${current_vs_previous_kpis.end_date} = ${time_period.end_date} AND  ${current_vs_previous_kpis.period} = ${time_period.period};;
+    relationship: many_to_one
+  }
+  join: add_dim {
+    type: inner
+    sql_on: ${current_vs_previous_kpis.ad_unit} = ${add_dim.ad_unit};;
+    relationship: many_to_one
+  }
+}
