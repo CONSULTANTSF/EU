@@ -55,6 +55,7 @@ view: dfp_comp_viz {
 
   dimension: ad_unit {
     type: string
+    hidden: yes
     sql: ${TABLE}.AD_UNIT ;;
   }
 

@@ -47,3 +47,17 @@ explore: daily_kpis {
     relationship: many_to_one
   }
 }
+
+explore: ad_request_size_kpis {
+  from: dfp_unfilled_viz
+  join: time_period {
+    type: inner
+    sql_on: ${ad_request_size_kpis.end_date} = ${time_period.end_date} AND  ${ad_request_size_kpis.period} = ${time_period.period};;
+    relationship: many_to_one
+  }
+  join: add_dim {
+    type: inner
+    sql_on: ${ad_request_size_kpis.ad_unit} = ${add_dim.ad_unit};;
+    relationship: many_to_one
+  }
+}

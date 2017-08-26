@@ -66,8 +66,10 @@ view: dfp_imp_daily_viz {
 
   dimension: ad_unit {
     type: string
+    hidden: yes
     sql: ${TABLE}.AD_UNIT ;;
   }
+
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 ##MEASURES
