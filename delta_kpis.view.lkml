@@ -188,7 +188,7 @@ view: dfp_delta {
 
 ##@@@@@@@@@@
 ##@@@@@@@@@@
-##CALCULATED MEASURES
+##CALCULATED MEASURES - RATIOS (CURRENT AND PREVIOUS)
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 
@@ -204,9 +204,206 @@ view: dfp_delta {
     sql: CASE WHEN 1.0*${view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${total_clicks_prev} > 0 THEN 1.0*(${total_clicks_prev}/${view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
+  measure: view_impressions_pcnt {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions} > 0 THEN (CASE WHEN 1.0*${view_impressions} > 0 THEN 1.0*(${view_impressions}/${total_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${view_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: view_impressions_pcnt_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions_prev} > 0 THEN (CASE WHEN 1.0*${view_impressions_prev} > 0 THEN 1.0*(${view_impressions_prev}/${total_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${view_impressions_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ecpmv {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${view_impressions} > 0 THEN (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm} > 0 THEN 1.0*(${total_cpm_cpc_cpd_vcpm}/(${view_impressions}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ecpmv_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm_prev} > 0 THEN 1.0*(${total_cpm_cpc_cpd_vcpm_prev}/(${view_impressions_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_vCTR {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0*(${ad_server_clicks}/${ad_server_view_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_vCTR_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_clicks_prev} > 0 THEN 1.0*(${ad_server_clicks_prev}/${ad_server_view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_clicks_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_vCTR {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0*(${ad_exchange_clicks}/${ad_exchange_view_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_vCTR_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_clicks_prev} > 0 THEN 1.0*(${ad_exchange_clicks_prev}/${ad_exchange_view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_clicks_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_revenue {
+    type: sum
+    sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM - ${TABLE}.ADEX_REVENUE ;;
+  }
+
+  measure: ad_server_revenue_prev {
+    type: sum
+    sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM_PREV - ${TABLE}.ADEX_REVENUE_PREV ;;
+  }
+
+  measure: ad_server_ecpmv {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0*(${ad_server_revenue}/(${ad_server_revenue}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_ecpmv_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_revenue_prev} > 0 THEN 1.0*(${ad_server_revenue_prev}/(${ad_server_revenue_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_revenue_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_ecpmv {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0*(${ad_exchange_revenue}/(${ad_exchange_revenue}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_ecpmv_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_revenue_prev} > 0 THEN 1.0*(${ad_exchange_revenue_prev}/(${ad_exchange_revenue_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_revenue_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: unfilled_impressions_pcnt {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions} > 0 THEN (CASE WHEN 1.0*${unfilled_impressions} > 0 THEN 1.0*(${unfilled_impressions}/${total_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${unfilled_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: unfilled_impressions_pcnt_prev {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions_prev} > 0 THEN (CASE WHEN 1.0*${unfilled_impressions_prev} > 0 THEN 1.0*(${unfilled_impressions_prev}/${total_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${unfilled_impressions_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+##@@@@@@@@@@
+##@@@@@@@@@@
+##CALCULATED MEASURES - DELTAS
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  measure: total_impressions_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions_prev} > 0 THEN (CASE WHEN 1.0*${total_impressions} > 0 THEN 1.0*((${total_impressions}-${total_impressions_prev})/${total_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: total_clicks_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_clicks_prev} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*((${total_clicks}-${total_clicks_prev})/${total_clicks_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: view_impressions_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${view_impressions} > 0 THEN 1.0*((${view_impressions}-${view_impressions_prev})/${view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${view_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
   measure: vCTR_delta {
     type: number
     value_format: "0.00%"
     sql:  ${vCTR} - ${vCTR_prev};;
   }
+
+  measure: view_impressions_pcnt_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${view_impressions_pcnt} - ${view_impressions_pcnt_prev};;
+  }
+
+  measure: ecpmv_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${ecpmv} - ${ecpmv_prev};;
+  }
+
+  measure: ad_server_view_impressions_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_view_impressions} > 0 THEN 1.0*((${ad_server_view_impressions}-${ad_server_view_impressions_prev})/${ad_server_view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_view_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_view_impressions_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_view_impressions} > 0 THEN 1.0*((${ad_exchange_view_impressions}-${ad_exchange_view_impressions_prev})/${ad_exchange_view_impressions_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_view_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_clicks_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_clicks_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0*((${ad_server_clicks}-${ad_server_clicks_prev})/${ad_server_clicks_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_clicks_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_clicks_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0*((${ad_exchange_clicks}-${ad_exchange_clicks_prev})/${ad_exchange_clicks_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_vCTR_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${ad_server_vCTR} - ${ad_server_vCTR_prev};;
+  }
+
+  measure: ad_exchange_vCTR_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${ad_exchange_vCTR} - ${ad_exchange_vCTR_prev};;
+  }
+
+  measure: ad_server_ecpmv_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${ad_server_ecpmv} - ${ad_server_ecpmv_prev};;
+  }
+
+  measure: ad_exchange_ecpmv_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${ad_exchange_ecpmv} - ${ad_exchange_ecpmv_prev};;
+  }
+
+  measure: ad_server_revenue_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_server_revenue_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0*((${ad_server_revenue}-${ad_server_revenue_prev})/${ad_server_revenue_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_revenue_delta {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${ad_exchange_revenue_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0*((${ad_exchange_revenue}-${ad_exchange_revenue_prev})/${ad_exchange_revenue_prev}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: unfilled_impressions_pcnt_delta {
+    type: number
+    value_format: "0.00%"
+    sql:  ${unfilled_impressions_pcnt} - ${unfilled_impressions_pcnt_prev};;
+  }
+
 }
