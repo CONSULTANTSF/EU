@@ -161,4 +161,34 @@ view: dfp_imp_daily_viz {
     value_format: "0.00%"
     sql: CASE WHEN 1.0*${view_impressions} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${view_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
+
+  measure: non_view_impressions {
+    type: sum
+    value_format: "0.0,,\" M\""
+    sql: ${TABLE}.TOTAL_IMP - ${TABLE}.VIEW_IMP ;;
+  }
+
+  measure: CTR {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${total_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_server_clicks_pcnt {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_clicks} > 0 THEN (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0*(${ad_server_clicks}/${total_clicks}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: ad_exchange_clicks_pcnt {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_clicks} > 0 THEN (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0*(${ad_exchange_clicks}/${total_clicks}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
+
+  measure: unfilled_impressions_pcnt {
+    type: number
+    value_format: "0.00%"
+    sql: CASE WHEN 1.0*${total_impressions} > 0 THEN (CASE WHEN 1.0*${unfilled_impressions} > 0 THEN 1.0*(${unfilled_impressions}/${total_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${unfilled_impressions} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+  }
 }
