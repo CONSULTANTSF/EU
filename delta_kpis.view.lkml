@@ -68,6 +68,7 @@ view: dfp_delta {
     sql: ${TABLE}.AD_UNIT ;;
   }
 
+
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 ##MEASURES - CURRENT PERIOD
@@ -76,51 +77,61 @@ view: dfp_delta {
 
   measure: ad_exchange_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADEX_CLICKS ;;
   }
 
   measure: ad_exchange_revenue {
     type: sum
+    value_format: "$#.00,\" K\""
     sql: ${TABLE}.ADEX_REVENUE ;;
   }
 
   measure: ad_exchange_view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADEX_VIEW_IMP ;;
   }
 
   measure: ad_server_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADSERV_CLICKS ;;
   }
 
   measure: ad_server_view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADSERV_VIEW_IMP ;;
   }
 
   measure: total_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.TOTAL_CLICKS ;;
   }
 
   measure: total_cpm_cpc_cpd_vcpm {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
   }
 
   measure: total_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.TOTAL_IMP ;;
   }
 
   measure: unfilled_impressions {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.UNFILLED_IMP ;;
   }
 
   measure: view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.VIEW_IMP ;;
   }
 
@@ -132,58 +143,62 @@ view: dfp_delta {
 
   measure: ad_exchange_clicks_prev {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADEX_CLICKS_PREV ;;
   }
 
   measure: ad_exchange_revenue_prev {
     type: sum
+    value_format: "$#.00,\" K\""
     sql: ${TABLE}.ADEX_REVENUE_PREV ;;
   }
 
   measure: ad_exchange_view_impressions_prev {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADEX_VIEW_IMP_PREV ;;
   }
 
   measure: ad_server_clicks_prev {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADSERV_CLICKS_PREV ;;
   }
 
   measure: ad_server_view_impressions_prev {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADSERV_VIEW_IMP_PREV ;;
   }
 
   measure: total_clicks_prev {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.TOTAL_CLICKS_PREV ;;
   }
 
   measure: total_cpm_cpc_cpd_vcpm_prev {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM_PREV ;;
   }
 
   measure: total_impressions_prev {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.TOTAL_IMP_PREV ;;
   }
 
   measure: unfilled_impressions_prev {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.UNFILLED_IMP_PREV ;;
   }
 
   measure: view_impressions_prev {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.VIEW_IMP_PREV ;;
-  }
-
-  measure: count {
-    hidden:  yes
-    type: count
-    drill_fields: [placement_name, page_name, site_name]
   }
 
 ##@@@@@@@@@@
@@ -218,13 +233,13 @@ view: dfp_delta {
 
   measure: ecpmv {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${view_impressions} > 0 THEN (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm} > 0 THEN 1.0*(${total_cpm_cpc_cpd_vcpm}/(${view_impressions}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
   measure: ecpmv_prev {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm_prev} > 0 THEN 1.0*(${total_cpm_cpc_cpd_vcpm_prev}/(${view_impressions_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_cpm_cpc_cpd_vcpm_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
@@ -254,35 +269,37 @@ view: dfp_delta {
 
   measure: ad_server_revenue {
     type: sum
+    value_format: "$#.00,\" K\""
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM - ${TABLE}.ADEX_REVENUE ;;
   }
 
   measure: ad_server_revenue_prev {
     type: sum
+    value_format: "$#.00,\" K\""
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM_PREV - ${TABLE}.ADEX_REVENUE_PREV ;;
   }
 
   measure: ad_server_ecpmv {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${ad_server_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0*(${ad_server_revenue}/(${ad_server_revenue}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
   measure: ad_server_ecpmv_prev {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${ad_server_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_server_revenue_prev} > 0 THEN 1.0*(${ad_server_revenue_prev}/(${ad_server_revenue_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_server_revenue_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
   measure: ad_exchange_ecpmv {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${ad_exchange_view_impressions} > 0 THEN (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0*(${ad_exchange_revenue}/(${ad_exchange_revenue}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_revenue} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
   measure: ad_exchange_ecpmv_prev {
     type: number
-    value_format: "0.00%"
+    value_format: "$#.00"
     sql: CASE WHEN 1.0*${ad_exchange_view_impressions_prev} > 0 THEN (CASE WHEN 1.0*${ad_exchange_revenue_prev} > 0 THEN 1.0*(${ad_exchange_revenue_prev}/(${ad_exchange_revenue_prev}/1000)) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${ad_exchange_revenue_prev} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
