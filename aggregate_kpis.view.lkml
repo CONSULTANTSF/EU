@@ -65,27 +65,27 @@ view: dfp_agg_viz {
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 
-  measure: adex_clicks {
+  measure: ad_exchange_clicks {
     type: sum
     sql: ${TABLE}.ADEX_CLICKS ;;
   }
 
-  measure: adex_revenue {
+  measure: ad_exchange_revenue {
     type: sum
     sql: ${TABLE}.ADEX_REVENUE ;;
   }
 
-  measure: adex_view_imp {
+  measure: ad_exchange_view_impressions {
     type: sum
     sql: ${TABLE}.ADEX_VIEW_IMP ;;
   }
 
-  measure: adserv_clicks {
+  measure: ad_server_clicks {
     type: sum
     sql: ${TABLE}.ADSERV_CLICKS ;;
   }
 
-  measure: adserv_view_imp {
+  measure: ad_server_view_impressions {
     type: sum
     sql: ${TABLE}.ADSERV_VIEW_IMP ;;
   }
@@ -100,22 +100,23 @@ view: dfp_agg_viz {
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
   }
 
-  measure: total_imp {
+  measure: total_impressions {
     type: sum
     sql: ${TABLE}.TOTAL_IMP ;;
   }
 
-  measure: unfilled_imp {
+  measure: unfilled_impressions {
     type: sum
     sql: ${TABLE}.UNFILLED_IMP ;;
   }
 
-  measure: view_imp {
+  measure: view_impressions {
     type: sum
     sql: ${TABLE}.VIEW_IMP ;;
   }
 
   measure: count {
+    hidden:  yes
     type: count
     drill_fields: [placement_name, page_name, site_name]
   }
@@ -129,7 +130,7 @@ view: dfp_agg_viz {
   measure: vCTR {
     type: number
     value_format: "0.00%"
-    sql: CASE WHEN 1.0*${view_imp} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${view_imp}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
+    sql: CASE WHEN 1.0*${view_impressions} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${view_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
 
 }
