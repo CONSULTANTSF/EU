@@ -14,11 +14,13 @@ view: dfp_imp_daily_viz {
 
   dimension: period {
     type: string
+    hidden: yes
     sql: ${TABLE}.PERIOD ;;
   }
 
   dimension_group: end {
     type: time
+    hidden: yes
     timeframes: [date]
     sql: ${TABLE}.END_DATE ;;
   }
@@ -36,31 +38,37 @@ view: dfp_imp_daily_viz {
 
   dimension: site {
     type: string
+    hidden: yes
     sql: ${TABLE}.SITE ;;
   }
 
   dimension: site_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.SITE_NAME ;;
   }
 
   dimension: page {
     type: string
+    hidden: yes
     sql: ${TABLE}.PAGE ;;
   }
 
   dimension: page_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.PAGE_NAME ;;
   }
 
   dimension: placement {
     type: string
+    hidden: yes
     sql: ${TABLE}.PLACEMENT ;;
   }
 
   dimension: placement_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.PLACEMENT_NAME ;;
   }
 

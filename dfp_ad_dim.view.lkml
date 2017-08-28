@@ -40,6 +40,7 @@ view: add_dim {
 
   measure: count {
     type: count
+    hidden: yes
     drill_fields: [page_name, placement_name, site_name]
   }
 }
