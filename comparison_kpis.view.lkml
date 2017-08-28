@@ -129,6 +129,7 @@ view: dfp_comp_viz {
 
   measure: vCTR {
     type: number
+    hidden:  yes
     value_format: "0.00%"
     sql: CASE WHEN 1.0*${view_impressions} > 0 THEN (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0*(${total_clicks}/${view_impressions}) ELSE 0.0 END) ELSE (CASE WHEN 1.0*${total_clicks} > 0 THEN 1.0 ELSE 0.0 END) END ;;
   }
