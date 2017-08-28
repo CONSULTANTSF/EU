@@ -19,42 +19,50 @@ view: dfp_unfilled_viz {
 
   dimension: period {
     type: string
+    hidden: yes
     sql: ${TABLE}.PERIOD ;;
   }
 
   dimension_group: end {
     type: time
+    hidden: yes
     timeframes: [date]
     sql: ${TABLE}.END_DATE ;;
   }
 
   dimension: site {
     type: string
+    hidden: yes
     sql: ${TABLE}.SITE ;;
   }
 
   dimension: site_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.SITE_NAME ;;
   }
 
   dimension: page {
     type: string
+    hidden: yes
     sql: ${TABLE}.PAGE ;;
   }
 
   dimension: page_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.PAGE_NAME ;;
   }
 
   dimension: placement {
     type: string
+    hidden: yes
     sql: ${TABLE}.PLACEMENT ;;
   }
 
   dimension: placement_name {
     type: string
+    hidden: yes
     sql: ${TABLE}.PLACEMENT_NAME ;;
   }
 
@@ -70,13 +78,15 @@ view: dfp_unfilled_viz {
 ##@@@@@@@@@@
 ##@@@@@@@@@@
 
-  measure: unfilled_imp {
+  measure: unfilled_impressions {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.UNFILLED_IMP ;;
   }
 
   measure: count {
     type: count
+    hidden:  yes
     drill_fields: [placement_name, page_name, site_name]
   }
 }

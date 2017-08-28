@@ -86,51 +86,61 @@ view: dfp_imp_daily_viz {
 
   measure: ad_exchange_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADEX_CLICKS ;;
   }
 
   measure: ad_exchange_revenue {
     type: sum
+    value_format: "$#.00,\" K\""
     sql: ${TABLE}.ADEX_REVENUE ;;
   }
 
   measure: ad_exchange_view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADEX_VIEW_IMP ;;
   }
 
   measure: ad_server_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.ADSERV_CLICKS ;;
   }
 
   measure: ad_server_view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.ADSERV_VIEW_IMP ;;
   }
 
   measure: total_clicks {
     type: sum
+    value_format: "0.0,\" K\""
     sql: ${TABLE}.TOTAL_CLICKS ;;
   }
 
   measure: total_cpm_cpc_cpd_vcpm {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
   }
 
   measure: total_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.TOTAL_IMP ;;
   }
 
   measure: unfilled_impressions {
     type: sum
+    value_format: "$#,##0.00"
     sql: ${TABLE}.UNFILLED_IMP ;;
   }
 
   measure: view_impressions {
     type: sum
+    value_format: "0.0,,\" M\""
     sql: ${TABLE}.VIEW_IMP ;;
   }
 
