@@ -117,7 +117,7 @@ view: dfp_comp_viz {
 
   measure: total_impressions {
     type: sum
-    value_format: "0.0,,\" M\""
+    value_format_name: usd_short
     sql: ${TABLE}.TOTAL_IMP ;;
   }
 
