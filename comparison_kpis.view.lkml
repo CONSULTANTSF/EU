@@ -69,6 +69,132 @@ view: dfp_comp_viz {
 
 ##@@@@@@@@@@
 ##@@@@@@@@@@
+##HIDDEN DIMENSIONS - USED INSIDE MEASURES
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  dimension: adex_clicks {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_CLICKS ;;
+  }
+
+  dimension: adex_clicks_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_CLICKS_PREV ;;
+  }
+
+  dimension: adex_revenue {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_REVENUE ;;
+  }
+
+  dimension: adex_revenue_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_REVENUE_PREV ;;
+  }
+
+  dimension: adex_view_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_VIEW_IMP ;;
+  }
+
+  dimension: adex_view_imp_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADEX_VIEW_IMP_PREV ;;
+  }
+
+  dimension: adserv_clicks {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADSERV_CLICKS ;;
+  }
+
+  dimension: adserv_clicks_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADSERV_CLICKS_PREV ;;
+  }
+
+  dimension: adserv_view_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADSERV_VIEW_IMP ;;
+  }
+
+  dimension: adserv_view_imp_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.ADSERV_VIEW_IMP_PREV ;;
+  }
+
+  dimension: tot_clicks {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_CLICKS ;;
+  }
+
+  dimension: tot_clicks_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_CLICKS_PREV ;;
+  }
+
+  dimension: tot_cpm_cpc_cpd_vcpm {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
+  }
+
+  dimension: tot_cpm_cpc_cpd_vcpm_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM_PREV ;;
+  }
+
+  dimension: tot_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_IMP ;;
+  }
+
+  dimension: tot_imp_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.TOTAL_IMP_PREV ;;
+  }
+
+  dimension: unfilled_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.UNFILLED_IMP ;;
+  }
+
+  dimension: unfilled_imp_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.UNFILLED_IMP_PREV ;;
+  }
+
+  dimension: view_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.VIEW_IMP ;;
+  }
+
+  dimension: view_imp_prev {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.VIEW_IMP_PREV ;;
+  }
+
+##@@@@@@@@@@
+##@@@@@@@@@@
 ##MEASURES
 ##@@@@@@@@@@
 ##@@@@@@@@@@
@@ -76,61 +202,61 @@ view: dfp_comp_viz {
   measure: ad_exchange_clicks {
     type: sum
     value_format: "0.0,\" K\""
-    sql: ${TABLE}.ADEX_CLICKS ;;
+    sql: ${adex_clicks} ;;
   }
 
   measure: ad_exchange_revenue {
     type: sum
     value_format: "$#.00,\" K\""
-    sql: ${TABLE}.ADEX_REVENUE ;;
+    sql: ${adex_revenue} ;;
   }
 
   measure: ad_exchange_view_impressions {
     type: sum
     value_format: "0.0,,\" M\""
-    sql: ${TABLE}.ADEX_VIEW_IMP ;;
+    sql: ${adex_view_imp} ;;
   }
 
   measure: ad_server_clicks {
     type: sum
     value_format: "0.0,\" K\""
-    sql: ${TABLE}.ADSERV_CLICKS ;;
+    sql: ${adserv_clicks} ;;
   }
 
   measure: ad_server_view_impressions {
     type: sum
     value_format: "0.0,,\" M\""
-    sql: ${TABLE}.ADSERV_VIEW_IMP ;;
+    sql: ${adserv_view_imp} ;;
   }
 
   measure: total_clicks {
     type: sum
     value_format: "0.0,\" K\""
-    sql: ${TABLE}.TOTAL_CLICKS ;;
+    sql: ${tot_clicks} ;;
   }
 
   measure: total_cpm_cpc_cpd_vcpm {
     type: sum
     value_format: "$#,##0.00"
-    sql: ${TABLE}.TOTAL_CPM_CPC_CPD_VCPM ;;
+    sql: ${tot_cpm_cpc_cpd_vcpm} ;;
   }
 
   measure: total_impressions {
     type: sum
-    value_format_name: usd_short
-    sql: ${TABLE}.TOTAL_IMP ;;
+    value_format: "0.0,,\" M\""
+    sql: ${tot_imp} ;;
   }
 
   measure: unfilled_impressions {
     type: sum
     value_format: "$#,##0.00"
-    sql: ${TABLE}.UNFILLED_IMP ;;
+    sql: ${unfilled_imp} ;;
   }
 
   measure: view_impressions {
     type: sum
     value_format: "0.0,,\" M\""
-    sql: ${TABLE}.VIEW_IMP ;;
+    sql: ${view_imp} ;;
   }
 
   measure: count {

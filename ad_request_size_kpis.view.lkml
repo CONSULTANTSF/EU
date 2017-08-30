@@ -74,6 +74,18 @@ view: dfp_unfilled_viz {
 
 ##@@@@@@@@@@
 ##@@@@@@@@@@
+##HIDDEN DIMENSIONS - USED INSIDE MEASURES
+##@@@@@@@@@@
+##@@@@@@@@@@
+
+  dimension: unfilled_imp {
+    type: number
+    hidden:  yes
+    sql: ${TABLE}.UNFILLED_IMP ;;
+  }
+
+##@@@@@@@@@@
+##@@@@@@@@@@
 ##MEASURES
 ##@@@@@@@@@@
 ##@@@@@@@@@@
@@ -81,7 +93,7 @@ view: dfp_unfilled_viz {
   measure: unfilled_impressions {
     type: sum
     value_format: "$#,##0.00"
-    sql: ${TABLE}.UNFILLED_IMP ;;
+    sql: ${unfilled_imp} ;;
   }
 
   measure: count {
