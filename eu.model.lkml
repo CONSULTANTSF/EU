@@ -10,7 +10,6 @@ named_value_format: usd_short {
   value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
 }
 
-
 # Includes KPIs sliced by site/page/placement, relative to a particular period and end_date
 explore: aggregate_kpis {
   from: dfp_agg_viz
