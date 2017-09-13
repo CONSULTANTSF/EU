@@ -101,4 +101,9 @@ view: dfp_unfilled_viz {
     hidden:  yes
     drill_fields: [placement_name, page_name, site_name]
   }
+
+  measure: rank {
+    type : number
+    sql:  rank () over (order by ${unfilled_impressions}) desc);;
+  }
 }
